@@ -1,1 +1,179 @@
+:root{
+  --bg:#0f1720;
+  --panel:#16212c;
+  --panel2:#1c2b38;
+  --border:#28394a;
+  --text:#e7edf3;
+  --muted:#8ea3b5;
+  --accent:#2f8f6f;
+  --accent2:#3fae86;
+  --danger:#c9564f;
+  --warn:#c98e3d;
+  --debit:#3f7fae;
+  --credit:#ae7f3f;
+  --radius:8px;
+  font-family:"Tahoma","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-size:14px;}
+body{min-height:100vh;}
+a{color:inherit;}
+button{cursor:pointer;font-family:inherit;}
+table{border-collapse:collapse;width:100%;}
+th,td{padding:6px 8px;border-bottom:1px solid var(--border);text-align:right;font-size:13px;}
+th{background:var(--panel2);color:var(--muted);font-weight:600;position:sticky;top:0;}
+tr:hover td{background:rgba(255,255,255,0.02);}
+input,select,textarea{
+  background:var(--panel2);border:1px solid var(--border);color:var(--text);
+  padding:7px 9px;border-radius:6px;font-size:13px;font-family:inherit;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent2);}
+.btn{
+  background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:6px;
+  font-size:13px;font-weight:600;transition:.15s;
+}
+.btn:hover{background:var(--accent2);}
+.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border);}
+.btn.secondary:hover{border-color:var(--accent2);}
+.btn.danger{background:var(--danger);}
+.btn.danger:hover{background:#e06b63;}
+.btn.small{padding:4px 9px;font-size:12px;}
+.hidden{display:none !important;}
 
+/* login */
+#loginScreen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 30% 20%, #16303a 0%, #0f1720 60%);
+}
+.loginBox{
+  background:var(--panel);border:1px solid var(--border);border-radius:12px;
+  padding:36px 40px;width:340px;text-align:center;
+}
+.loginBox h1{font-size:20px;margin:0 0 4px;color:var(--accent2);}
+.loginBox p{color:var(--muted);font-size:12px;margin:0 0 20px;}
+.loginBox input{width:100%;margin-bottom:10px;}
+.loginBox .btn{width:100%;margin-top:6px;}
+.loginErr{color:var(--danger);font-size:12px;min-height:16px;margin-top:6px;}
+
+/* layout */
+#appShell{display:none;min-height:100vh;flex-direction:column;}
+#topbar{
+  background:var(--panel);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 14px;height:52px;gap:4px;
+  overflow-x:auto;white-space:nowrap;
+}
+#topbar .brand{font-weight:700;color:var(--accent2);margin-left:16px;font-size:15px;}
+.navBtn{
+  background:transparent;border:none;color:var(--muted);padding:8px 12px;
+  border-radius:6px;font-size:13px;font-weight:600;
+}
+.navBtn:hover{background:var(--panel2);color:var(--text);}
+.navBtn.active{background:var(--accent);color:#fff;}
+#userBox{margin-right:auto;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);}
+#subbar{
+  background:var(--panel2);border-bottom:1px solid var(--border);
+  display:flex;gap:4px;padding:8px 14px;overflow-x:auto;white-space:nowrap;
+}
+.subBtn{
+  background:transparent;border:1px solid transparent;color:var(--muted);
+  padding:6px 12px;border-radius:16px;font-size:12.5px;
+}
+.subBtn:hover{border-color:var(--border);color:var(--text);}
+.subBtn.active{background:var(--accent2);color:#08281f;border-color:var(--accent2);font-weight:700;}
+#content{padding:18px;flex:1;overflow-y:auto;}
+
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;}
+.cardHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.cardHead h2{margin:0;font-size:16px;color:var(--accent2);}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
+.field{display:flex;flex-direction:column;gap:4px;min-width:140px;}
+.field label{font-size:11.5px;color:var(--muted);}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+@media(max-width:800px){.grid4{grid-template-columns:repeat(2,1fr);}.grid3{grid-template-columns:repeat(2,1fr);}}
+
+.stat{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;flex:1;min-width:150px;}
+.stat .lbl{font-size:11.5px;color:var(--muted);margin-bottom:4px;}
+.stat .val{font-size:19px;font-weight:700;}
+.pos{color:var(--accent2);}
+.neg{color:var(--danger);}
+.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700;}
+.tag.paid{background:rgba(63,174,134,.18);color:var(--accent2);}
+.tag.partial{background:rgba(201,142,61,.18);color:var(--warn);}
+.tag.unpaid{background:rgba(201,86,79,.18);color:var(--danger);}
+.tag.debit{background:rgba(63,127,174,.18);color:#7fb8e0;}
+.tag.credit{background:rgba(174,127,63,.18);color:#e0b87f;}
+
+.modalBg{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;
+  justify-content:center;z-index:999;padding:20px;
+}
+.modal{
+  background:var(--panel);border:1px solid var(--border);border-radius:10px;
+  padding:20px;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;
+}
+.modal.wide{max-width:1000px;}
+.modal h3{margin:0 0 14px;color:var(--accent2);font-size:16px;}
+.linesScroll{overflow-x:auto;padding-bottom:4px;}
+.linesScroll .lineRow{min-width:640px;}
+.lineRow{display:grid;grid-template-columns:2.2fr 1fr .8fr .9fr .8fr auto;gap:6px;margin-bottom:6px;align-items:center;}
+.lineRow.header{color:var(--muted);font-size:11px;}
+.itemPickerWrap{position:relative;}
+.itemDropdown{position:absolute;top:100%;right:0;left:0;background:var(--panel2);border:1px solid var(--border);
+  border-radius:6px;max-height:220px;overflow-y:auto;z-index:50;margin-top:2px;}
+.itemDropdownRow{padding:7px 10px;font-size:12.5px;cursor:pointer;border-bottom:1px solid var(--border);}
+.itemDropdownRow:last-child{border-bottom:none;}
+.itemDropdownRow:hover{background:var(--accent);color:#fff;}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.searchBox{flex:1;min-width:180px;}
+.empty{text-align:center;color:var(--muted);padding:30px;font-size:13px;}
+.tableWrap{overflow-x:auto;}
+.badge{background:var(--panel2);padding:2px 8px;border-radius:10px;font-size:11px;color:var(--muted);}
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:var(--accent2);color:#08281f;padding:10px 20px;border-radius:8px;
+  font-weight:700;font-size:13px;z-index:2000;opacity:0;transition:.3s;pointer-events:none;
+}
+.toast.show{opacity:1;bottom:30px;}
+.linkBtn{background:none;border:none;color:#7fb8e0;text-decoration:underline;font-size:12px;padding:0;}
+::-webkit-scrollbar{width:9px;height:9px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px;}
+
+/* ============================================================
+   AHMETHOD — إضافات طبقة تعدد الشركات (تسجيل الدخول/الشركات/الاشتراك)
+   كل ما فوق هذا السطر هو تصميم الملف الأصلي كما هو بدون تغيير.
+   ============================================================ */
+#loadingScreen{text-align:center;padding-top:120px;color:var(--muted);font-size:15px;}
+#subExpiredScreen{
+  min-height:100vh;display:none;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 30% 20%, #16303a 0%, #0f1720 60%);
+}
+#subExpiredScreen h2{margin:0 0 12px;color:var(--danger);font-size:20px;}
+#subExpiredScreen p{color:var(--text);font-size:13.5px;margin:0 0 10px;}
+#superAdminShell{display:none;min-height:100vh;flex-direction:column;}
+#superAdminShell > .card{margin:18px;}
+.header{
+  background:var(--panel);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
+  padding:8px 14px;min-height:52px;
+}
+.header h3{margin:0;font-size:15px;color:var(--accent2);}
+.header span{color:var(--muted);}
+.loginBox .linkBtn{display:block;margin:12px auto 0;}
+.loginBox .loginSub{color:var(--muted);font-size:12px;margin:0 0 20px;}
+
+/* شريط الأقسام يتمرر لوحده، وبيانات المستخدم وزر الخروج يفضلوا ظاهرين دايمًا */
+#topbar{overflow-x:hidden;}
+#navMain{flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:thin;}
+#userBox{flex-shrink:0;}
+#topbar .brand{flex-shrink:0;}
+
+/* الهاتف: شريط الأقسام في صف مستقل قابل للتمرير وزر الخروج يبقى ظاهر */
+@media(max-width:700px){
+  #topbar{flex-wrap:wrap;height:auto;padding:8px 12px;row-gap:6px;overflow-x:visible;}
+  #topbar .brand{margin-left:8px;}
+  #userBox{margin-right:auto;flex-wrap:wrap;justify-content:flex-end;}
+  #navMain{order:3;flex:1 0 100%;overflow-x:auto;padding-bottom:4px;}
+  #content{padding:12px;}
+}
