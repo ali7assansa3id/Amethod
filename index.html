@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f1720">
+<title>AHMETHOD — نظام الحسابات المتكامل</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+<!-- مكتبة Excel (SheetJS): من CDN، ولو تعذّر تُحمَّل النسخة المحلية libs/xlsx.full.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
+        onerror="this.onerror=null;var s=document.createElement('script');s.src='libs/xlsx.full.min.js';document.head.appendChild(s);"></script>
+<!-- Firebase (نسخة compat — بدون أدوات بناء) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<!-- شاشة تحميل مؤقتة أثناء الاتصال بقاعدة البيانات السحابية -->
+<div id="loadingScreen">جاري الاتصال بقاعدة البيانات السحابية...</div>
+
+<!-- شاشة تسجيل الدخول (موحّدة: مدير عام / مدير شركة / موظف) -->
+<div id="loginScreen" style="display:none;">
+  <div class="loginBox">
+    <h1>📒 AHMETHOD</h1>
+    <p>نظام الحسابات المتكامل — سجّل الدخول للمتابعة</p>
+    <input id="liUser" placeholder="اسم المستخدم" autocomplete="username">
+    <input id="liPass" type="password" placeholder="كلمة السر" autocomplete="current-password">
+    <button class="btn" onclick="platformDoLogin()">دخول</button>
+    <div class="loginErr" id="liErr"></div>
+    <button class="linkBtn" onclick="openRegisterModal()">+ إنشاء حساب / شركة جديدة</button>
+  </div>
+</div>
+
+<!-- شاشة انتهاء / إيقاف الاشتراك -->
+<div id="subExpiredScreen">
+  <div class="loginBox">
+    <h2>تنبيه الاشتراك</h2>
+    <p>الشركة: <b id="subExpiredCompanyName"></b></p>
+    <p id="subExpiredMsg"></p>
+    <p>تاريخ الانتهاء: <b id="subExpiredEnd"></b></p>
+    <button class="btn secondary" onclick="backToLoginFromExpired()">رجوع لتسجيل الدخول</button>
+  </div>
+</div>
+
+<!-- لوحة إدارة الشركات (المدير العام للمنصة) -->
+<div id="superAdminShell"></div>
+
+<!-- التطبيق المحاسبي (شركة واحدة بعد تسجيل الدخول) — نفس هيكل الملف الأصلي -->
+<div id="appShell">
+  <div id="topbar"><span class="brand">📒 AHMETHOD</span><div id="navMain" style="display:flex;gap:4px;"></div><div id="userBox"></div></div>
+  <div id="subbar"></div>
+  <div id="content"></div>
+</div>
+
+<div id="modalRoot"></div>
+<div class="toast" id="toast"></div>
+
+<!-- المحرك المحاسبي الكامل (يهيّئ Firebase ويعرّف DB / saveDB / loadDB) -->
+<script src="js/app.js"></script>
+<!-- طبقة تعدد الشركات: تخزين المنصة، أدوات، أدوار، فهرس المستخدمين، الشركات، ثم الدخول (آخر ملف: فيه تشغيل الصفحة كلها) -->
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/permissions.js"></script>
+<script src="js/users.js"></script>
+<script src="js/companies.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>
