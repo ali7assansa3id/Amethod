@@ -16,8 +16,39 @@
 </head>
 <body>
 
+<!-- حارس أمان: لو أي ملف js فيه خطأ (اسم غلط/رفع ناقص)، الصفحة كانت هتفضل معلّقة
+     على شاشة التحميل للأبد بدون أي رسالة. الكود ده يمنع هذا: يلتقط أي خطأ،
+     وبعد 10 ثوانٍ لو شاشة التحميل لسه ظاهرة يوقفها ويعرض الخطأ مكتوبًا على
+     الشاشة نفسها (يشتغل حتى من غير أدوات المطوّر). لازم يكون أول حاجة في body
+     عشان يلتقط أخطاء كل الملفات اللي بعده. -->
+<script>
+(function(){
+  window.__ahmErrors = [];
+  window.addEventListener('error', function(e){
+    window.__ahmErrors.push((e.message||'خطأ غير معروف') + '  —  ' + (e.filename||'ملف غير معروف') + ':' + (e.lineno||'?'));
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    var msg = (e.reason && e.reason.message) ? e.reason.message : String(e.reason);
+    window.__ahmErrors.push('خطأ غير معالج (Promise): ' + msg);
+  });
+  setTimeout(function(){
+    var ls = document.getElementById('loadingScreen');
+    if (!ls) return;
+    var stillLoading = getComputedStyle(ls).display !== 'none';
+    if (!stillLoading) return;
+    var box = document.createElement('div');
+    box.style.cssText = 'max-width:640px;margin:24px auto 0;padding:16px;background:#2a1418;border:1px solid #c9564f;border-radius:8px;color:#f5c2c2;font-size:13px;text-align:right;direction:rtl;white-space:pre-wrap;line-height:1.7;';
+    box.textContent = window.__ahmErrors.length
+      ? 'تعذّر تحميل النظام — تم رصد هذا الخطأ (صوّره وابعته):\n\n' + window.__ahmErrors.join('\n')
+      : 'تعذّر تحميل النظام ولم يُرصد خطأ برمجي واضح.\nالسبب الأرجح: أحد ملفات js (app.js, storage.js, utils.js, permissions.js, users.js, companies.js, auth.js) غير مرفوع، أو اسمه/مساره غير مطابق تمامًا لما هو متوقع في index.html.';
+    ls.appendChild(box);
+  }, 10000);
+})();
+</script>
+
 <!-- شاشة تحميل مؤقتة أثناء الاتصال بقاعدة البيانات السحابية -->
 <div id="loadingScreen">جاري الاتصال بقاعدة البيانات السحابية...</div>
+<div id="bootError"></div>
 
 <!-- شاشة تسجيل الدخول (موحّدة: مدير عام / مدير شركة / موظف) -->
 <div id="loginScreen" style="display:none;">
